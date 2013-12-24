@@ -5,6 +5,11 @@ Vedantu External-Integration API server-side code for Institutes for integration
 
 Download the latest release of vedantu-ei-api from GitHub.
 
+#### Releases
+
+1. [Latest release](https://github.com/Vedantu/vedantu-ei-api/releases/latest)
+2. [All releases](https://github.com/Vedantu/vedantu-ei-api/releases)
+
 ### Requirements
 
 |                       | Details                                                          |
