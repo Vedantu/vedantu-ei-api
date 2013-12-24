@@ -62,4 +62,4 @@ Manager configuration needs to be specified in *managers.properties* file. This 
 
 
 ### References
-1. [docs/vedantu-ei-api.pdf](../master/docs/vedantu-ei-api.pdf) - Contains details of requirements and architecture.
+1. [docs/vedantu-ei-api.pdf](https://github.com/Vedantu/vedantu-ei-api/blob/master/docs/vedantu-ei-api.pdf) - Contains details of requirements and architecture.
