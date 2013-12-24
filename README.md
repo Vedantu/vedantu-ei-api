@@ -23,7 +23,7 @@ To get the available build options:
 ```shell
 ant
 OR
-ant -help
+ant help
 ```
 
 **Note: Appropriately set the environment variable CATALINA_HOME or TOMCAT_HOME to refer to the base directory of your Apache Tomcat installation.**
