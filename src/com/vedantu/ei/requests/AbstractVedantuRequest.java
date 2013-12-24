@@ -19,8 +19,6 @@ public abstract class AbstractVedantuRequest {
 	protected static <T> T parse(HttpServletRequest request, Class<T> classType)
 			throws VedantuException, IOException {
 
-		System.out.println("contentType: " + request.getContentType());
-
 		if (!request.getContentType().equals(
 				AbstractVedantuServlet.CONTENT_TYPE_JSON)) {
 			throw new VedantuException(VedantuErrorCode.INVALID_CONTENT_TYPE,
