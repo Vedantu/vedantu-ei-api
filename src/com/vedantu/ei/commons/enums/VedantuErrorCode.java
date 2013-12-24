@@ -1,0 +1,6 @@
+package com.vedantu.ei.commons.enums;
+
+public enum VedantuErrorCode {
+	UNHANDLED_ERROR, AUTHENTICATION_FAILED, INVALID_TEST_CODE, INVALID_USER_ID, INVALID_CONTENT_TYPE, UPLOAD_FAILED;
+
+}
