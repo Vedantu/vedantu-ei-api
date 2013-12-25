@@ -16,7 +16,8 @@ public abstract class AbstractVedantuServlet extends HttpServlet {
 		super();
 	}
 
-	protected void doGett(HttpServletRequest request,
+	@Override
+	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
