@@ -5,6 +5,11 @@ Vedantu External-Integration API server-side code for Institutes for integration
 
 Download the latest release of vedantu-ei-api from GitHub.
 
+#### Releases
+
+1. [Latest release](https://github.com/Vedantu/vedantu-ei-api/releases/latest)
+2. [All releases](https://github.com/Vedantu/vedantu-ei-api/releases)
+
 ### Requirements
 
 |                       | Details                                                          |
@@ -23,7 +28,7 @@ To get the available build options:
 ```shell
 ant
 OR
-ant -help
+ant help
 ```
 
 **Note: Appropriately set the environment variable CATALINA_HOME or TOMCAT_HOME to refer to the base directory of your Apache Tomcat installation.**
@@ -57,4 +62,4 @@ Manager configuration needs to be specified in *managers.properties* file. This 
 
 
 ### References
-1. [docs/vedantu-ei-api.pdf](../master/docs/vedantu-ei-api.pdf) - Contains details of requirements and architecture.
+1. [docs/vedantu-ei-api.pdf](https://github.com/Vedantu/vedantu-ei-api/blob/master/docs/vedantu-ei-api.pdf) - Contains details of requirements and architecture.
