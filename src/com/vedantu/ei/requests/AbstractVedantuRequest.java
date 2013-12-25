@@ -16,7 +16,7 @@ public abstract class AbstractVedantuRequest {
 
 	}
 
-	protected static <T> T parse(HttpServletRequest request, Class<T> classType)
+	public static <T> T parse(HttpServletRequest request, Class<T> classType)
 			throws VedantuException, IOException {
 
 		System.out.println("contentType: " + request.getContentType());
@@ -36,6 +36,12 @@ public abstract class AbstractVedantuRequest {
 		}
 
 		return GsonUtils.getGson().fromJson(sb.toString(), classType);
+
+	}
+
+	public final String toJSONString() {
+
+		return GsonUtils.getGson().toJson(this);
 
 	}
 }

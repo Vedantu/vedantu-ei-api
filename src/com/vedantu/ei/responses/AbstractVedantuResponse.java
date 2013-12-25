@@ -4,7 +4,6 @@ import com.vedantu.ei.commons.enums.VedantuErrorCode;
 import com.vedantu.ei.requests.AbstractVedantuRequest;
 import com.vedantu.ei.results.AbstractVedantuResult;
 import com.vedantu.ei.results.NoResult;
-import com.vedantu.ei.utils.GsonUtils;
 import com.vedantu.ei.utils.StringUtils;
 
 public class AbstractVedantuResponse extends AbstractVedantuRequest {
@@ -42,9 +41,4 @@ public class AbstractVedantuResponse extends AbstractVedantuRequest {
 		return result;
 	}
 
-	public final String toJSONString() {
-
-		return GsonUtils.getGson().toJson(this);
-
-	}
 }
