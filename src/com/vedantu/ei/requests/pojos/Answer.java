@@ -2,7 +2,7 @@ package com.vedantu.ei.requests.pojos;
 
 public class Answer {
 
-	private String questionNumber;
+	private int questionNumber; // 0 based index
 	private String userAnswer;
 	private boolean isAttempted;
 	private boolean isCorrect;
@@ -10,12 +10,12 @@ public class Answer {
 	private float userScore;
 	private long timeTaken;
 
-	public String getQuestionNumber() {
+	public int getQuestionNumber() {
 
 		return questionNumber;
 	}
 
-	public void setQuestionNumber(String questionNumber) {
+	public void setQuestionNumber(int questionNumber) {
 
 		this.questionNumber = questionNumber;
 	}

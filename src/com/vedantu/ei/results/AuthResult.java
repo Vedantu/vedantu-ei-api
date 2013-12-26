@@ -7,6 +7,7 @@ import java.util.List;
 import com.vedantu.ei.commons.enums.Gender;
 import com.vedantu.ei.commons.enums.Role;
 import com.vedantu.ei.responses.pojos.ClassInfo;
+import com.vedantu.ei.utils.CollectionUtils;
 import com.vedantu.ei.utils.StringUtils;
 
 public class AuthResult extends AbstractVedantuResult {
@@ -24,7 +25,7 @@ public class AuthResult extends AbstractVedantuResult {
 			List<ClassInfo> classes) throws InvocationTargetException {
 
 		if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(firstName)
-				|| role == null || StringUtils.isEmpty(classes)) {
+				|| role == null || CollectionUtils.isEmpty(classes)) {
 			throw new InvocationTargetException(new Throwable(
 					"can not instantiate auth response with empty values"));
 		}
