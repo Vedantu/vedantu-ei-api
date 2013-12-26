@@ -53,6 +53,10 @@ public class ClassInfo implements JSONAware, IResponseValidator {
 		return json;
 	}
 
+	public String toString() {
+		return "ClassInfo [classCode=" + classCode + ", expiry=" + expiry + "]";
+	}
+
 	private static final String KEY_CLASS_CODE = "classCode";
 	private static final String KEY_EXPIRY = "expiry";
 }
