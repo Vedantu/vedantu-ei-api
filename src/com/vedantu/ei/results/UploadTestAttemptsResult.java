@@ -62,5 +62,9 @@ public class UploadTestAttemptsResult extends AbstractVedantuResult {
 		return json;
 	}
 
+	public String toString() {
+		return "{failedAttempts:" + failedAttempts + "}";
+	}
+
 	private static final String KEY_FAILED_ATTEMPTS = "failedAttempts";
 }

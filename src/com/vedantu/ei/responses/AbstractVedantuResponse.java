@@ -75,6 +75,11 @@ public class AbstractVedantuResponse extends AbstractVedantuJSONStringable
 		return json;
 	}
 
+	public String toString() {
+		return "{errorCode:" + errorCode + ", errorMessage:" + errorMessage
+				+ ", result:" + result + "}";
+	}
+
 	public void loadResult(JSONObject json) throws JSONException {
 		JSONObject resultJSON = (JSONObject) json.get(KEY_RESULT);
 		this.result.fromJSON(resultJSON);

@@ -40,6 +40,10 @@ public class AuthRequest extends AbstractVedantuRequest {
 		return json;
 	}
 
+	public String toString() {
+		return "{username:" + username + "}";
+	}
+
 	private static final String KEY_USERNAME = "username";
 	private static final String KEY_PASSWORD = "password";
 }

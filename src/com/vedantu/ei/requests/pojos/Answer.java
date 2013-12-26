@@ -97,6 +97,13 @@ public class Answer implements JSONAware {
 		return json;
 	}
 
+	public String toString() {
+		return "{questionNumber:" + questionNumber + ", userAnswer:"
+				+ userAnswer + ", isAttempted:" + isAttempted + ", isCorrect:"
+				+ isCorrect + ", maxScore:" + maxScore + ", userScore:"
+				+ userScore + ", timeTaken:" + timeTaken + "}";
+	}
+
 	private static final String KEY_QUESTION_NUMBER = "questionNumber";
 	private static final String KEY_USER_ANSWER = "userAnswer";
 	private static final String KEY_IS_ATTEMPTED = "isAttempted";

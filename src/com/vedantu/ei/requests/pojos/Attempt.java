@@ -1,7 +1,6 @@
 package com.vedantu.ei.requests.pojos;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -124,6 +123,14 @@ public class Attempt implements JSONAware {
 			// swallow
 		}
 		return json;
+	}
+
+	public String toString() {
+		return "{code:" + code + ", userId:" + userId + ", attemptId:"
+				+ attemptId + ", maxScore:" + maxScore + ", userScore:"
+				+ userScore + ", attemptStartTime:" + attemptStartTime
+				+ ", attemptEndTime:" + attemptEndTime + ", answers:" + answers
+				+ "}";
 	}
 
 	private static final String KEY_CODE = "code";

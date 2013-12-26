@@ -141,6 +141,12 @@ public class AuthResult extends AbstractVedantuResult {
 		return json;
 	}
 
+	public String toString() {
+		return "{userId:" + userId + ", memberId:" + memberId + ", firstName:"
+				+ firstName + ", lastName:" + lastName + ", gender:" + gender
+				+ ", role:" + role + ", classes:" + classes + "}";
+	}
+
 	private static final String KEY_USER_ID = "userId";
 	private static final String KEY_MEMBER_ID = "memberId";
 	private static final String KEY_FIRST_NAME = "firstName";

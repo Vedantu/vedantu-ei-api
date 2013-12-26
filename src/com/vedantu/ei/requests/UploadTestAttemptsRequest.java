@@ -68,6 +68,10 @@ public class UploadTestAttemptsRequest extends AbstractVedantuRequest {
 		return json;
 	}
 
+	public String toString() {
+		return "{uploadId:" + uploadId + ", attempts:" + attempts + "}";
+	}
+
 	private static final String KEY_UPLOAD_ID = "uploadId";
 	private static final String KEY_ATTEMPTS = "attempts";
 }

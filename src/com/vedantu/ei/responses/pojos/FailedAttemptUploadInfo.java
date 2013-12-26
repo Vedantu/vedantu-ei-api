@@ -66,6 +66,10 @@ public class FailedAttemptUploadInfo implements JSONAware, IResponseValidator {
 		return json;
 	}
 
+	public String toString() {
+		return "{attemptId:" + attemptId + ", errorCode:" + errorCode + "}";
+	}
+
 	private static final String KEY_ATTEMPT_ID = "attemptId";
 	private static final String KEY_ERROR_CODE = "errorCode";
 }

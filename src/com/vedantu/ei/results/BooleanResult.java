@@ -35,5 +35,9 @@ public final class BooleanResult extends AbstractVedantuResult {
 		return json;
 	}
 
+	public String toString() {
+		return "{success:" + success + "}";
+	}
+
 	private static final String KEY_SUCCESS = "success";
 }
