@@ -15,15 +15,15 @@ import com.vedantu.ei.results.AuthResult;
 
 public class SampleUserManager implements IUserManager {
 
-	@Override
 	public AuthResponse authenticate(AuthRequest request)
 			throws InvocationTargetException {
 		AuthResponse response;
 		if (request.getUsername().equals("MBA2013999")
 				&& request.getPassword().equals("somesecret")) {
 
-			List<ClassInfo> classes = new ArrayList<ClassInfo>();
-			classes.add(new ClassInfo("TestId", 62222222222L));
+			/* <ClassInfo> */
+			List classes = new ArrayList();
+			classes.add(ClassInfo.construct("TestId", 62222222222L));
 
 			AuthResult result = new AuthResult("654321abc", "Anthony",
 					Role.STUDENT, classes);

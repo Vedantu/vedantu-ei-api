@@ -6,7 +6,7 @@ public class StringUtils {
 
 	public static boolean isEmpty(String input) {
 
-		return null == input || input.isEmpty();
+		return null == input || 0 == input.length();
 
 	}
 }

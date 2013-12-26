@@ -1,10 +1,7 @@
 package com.vedantu.ei.requests;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import com.vedantu.ei.exceptions.VedantuException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AuthRequest extends AbstractVedantuRequest {
 
@@ -14,13 +11,6 @@ public class AuthRequest extends AbstractVedantuRequest {
 	public AuthRequest() {
 
 		super();
-	}
-
-	public AuthRequest(String userName, String password) {
-
-		super();
-		this.username = userName;
-		this.password = password;
 	}
 
 	public String getUsername() {
@@ -39,9 +29,22 @@ public class AuthRequest extends AbstractVedantuRequest {
 		this.password = password;
 	}
 
-	public static AuthRequest parse(HttpServletRequest request)
-			throws VedantuException, IOException {
-
-		return parse(request, AuthRequest.class);
+	public void fromJSON(JSONObject json) throws JSONException {
+		this.username = json.getString(KEY_USERNAME);
+		this.password = json.getString(KEY_PASSWORD);
 	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put(KEY_USERNAME, this.username);
+			json.put(KEY_PASSWORD, this.password);
+		} catch (JSONException e) {
+			// swallow
+		}
+		return json;
+	}
+
+	private static final String KEY_USERNAME = "username";
+	private static final String KEY_PASSWORD = "password";
 }

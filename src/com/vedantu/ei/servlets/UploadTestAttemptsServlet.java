@@ -21,7 +21,6 @@ public class UploadTestAttemptsServlet extends AbstractVedantuServlet {
 		super();
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,8 +29,8 @@ public class UploadTestAttemptsServlet extends AbstractVedantuServlet {
 		PrintWriter writer = response.getWriter();
 
 		try {
-			UploadTestAttemptsRequest uploadTestAttemptsRequest = UploadTestAttemptsRequest
-					.parse(request);
+			UploadTestAttemptsRequest uploadTestAttemptsRequest = new UploadTestAttemptsRequest();
+			uploadTestAttemptsRequest.parse(request);
 
 			UploadTestAttemptsResponse uploadTestAttemptsResponse = ManagerFactory.INSTANCE
 					.getUploadManager().uploadTestAttempts(

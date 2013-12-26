@@ -21,7 +21,6 @@ public class AuthServlet extends AbstractVedantuServlet {
 		super();
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,7 +29,8 @@ public class AuthServlet extends AbstractVedantuServlet {
 		PrintWriter writer = response.getWriter();
 
 		try {
-			AuthRequest authRequest = AuthRequest.parse(request);
+			AuthRequest authRequest = new AuthRequest();
+			authRequest.parse(request);
 
 			AuthResponse authResponse = ManagerFactory.INSTANCE
 					.getUserManager().authenticate(authRequest);

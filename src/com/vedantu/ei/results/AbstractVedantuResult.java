@@ -1,5 +1,7 @@
 package com.vedantu.ei.results;
 
-public abstract class AbstractVedantuResult {
+import com.vedantu.ei.commons.JSONAware;
+
+public abstract class AbstractVedantuResult implements JSONAware {
 
 }

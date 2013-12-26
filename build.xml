@@ -10,8 +10,7 @@
   <property name="web.home"      value="${basedir}/web"/>
   <property name="conf.home"     value="${basedir}/conf"/>
 
-  <property name="tcserver.home" value="${env.CATALINA_HOME}" />
-  <property name="tcserver.home" value="${env.TOMCAT_HOME}" />
+  <property name="tcserver.home" value="${env.APP_SERVER_HOME}" />
 
   <target name="help">
     <echo>You can use the following targets:</echo>
@@ -31,10 +30,14 @@
     <fileset dir="${tcserver.home}/bin">
       <include name="*.jar"/>
     </fileset>
-    <pathelement location="${tcserver.home}/lib"/>
-    <!-- fileset dir="${tcserver.home}/lib">
+    <!-- pathelement location="${tcserver.home}/lib"/ -->
+    <!-- pathelement location="${tcserver.home}/common/lib"/ -->
+    <fileset dir="${tcserver.home}/lib" erroronmissingdir="false">
       <include name="*.jar"/>
-    </fileset -->
+    </fileset>
+    <fileset dir="${tcserver.home}/common/lib" erroronmissingdir="false">
+      <include name="*.jar"/>
+    </fileset>
     <fileset dir="${basedir}/lib">
       <include name="*.jar"/>
     </fileset>

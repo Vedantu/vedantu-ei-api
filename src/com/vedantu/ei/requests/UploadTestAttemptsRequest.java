@@ -1,18 +1,20 @@
 package com.vedantu.ei.requests;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.vedantu.ei.exceptions.VedantuException;
 import com.vedantu.ei.requests.pojos.Attempt;
+import com.vedantu.ei.utils.JSONUtils;
 
 public class UploadTestAttemptsRequest extends AbstractVedantuRequest {
 
 	private String uploadId;
-	private List<Attempt> attempts = new ArrayList<Attempt>();
+	/* <Attempt> */
+	private List attempts = new ArrayList();
 
 	public String getUploadId() {
 
@@ -24,17 +26,17 @@ public class UploadTestAttemptsRequest extends AbstractVedantuRequest {
 		this.uploadId = uploadId;
 	}
 
-	public List<Attempt> getAttempts() {
+	public List getAttempts() {
 
 		return attempts;
 	}
 
-	public void setAttempts(List<Attempt> attempts) {
+	public void setAttempts(List attempts) {
 
 		this.attempts = attempts;
 	}
 
-	public void addAttempts(Attempt... attempts) {
+	public void addAttempts(Attempt[] attempts) {
 
 		if (attempts != null) {
 			for (int i = 0; i < attempts.length; i++) {
@@ -48,9 +50,29 @@ public class UploadTestAttemptsRequest extends AbstractVedantuRequest {
 		this.attempts.add(attempt);
 	}
 
-	public static UploadTestAttemptsRequest parse(HttpServletRequest request)
-			throws VedantuException, IOException {
+	public void fromJSON(JSONObject json) throws JSONException {
+		this.uploadId = json.getString(KEY_UPLOAD_ID);
 
-		return parse(request, UploadTestAttemptsRequest.class);
+		JSONArray attemptsJSONArray = json.getJSONArray(KEY_ATTEMPTS);
+		for (int i = 0; i < attemptsJSONArray.length(); i++) {
+			JSONObject attemptJSON = (JSONObject) attemptsJSONArray.get(i);
+			Attempt attempt = new Attempt();
+			attempt.fromJSON(attemptJSON);
+			this.attempts.add(attempt);
+		}
 	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put(KEY_UPLOAD_ID, this.uploadId);
+			json.put(KEY_ATTEMPTS, JSONUtils.toJSONArray(this.attempts));
+		} catch (JSONException e) {
+			// swallow
+		}
+		return json;
+	}
+
+	private static final String KEY_UPLOAD_ID = "uploadId";
+	private static final String KEY_ATTEMPTS = "attempts";
 }

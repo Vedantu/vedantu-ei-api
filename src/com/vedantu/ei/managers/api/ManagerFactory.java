@@ -1,30 +1,30 @@
 package com.vedantu.ei.managers.api;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 
 public class ManagerFactory {
 
 	public static final ManagerFactory INSTANCE = new ManagerFactory();
 
-	private Map<String, IManager> managersMap;
+	/* <String, IManager> */
+	private Map managersMap;
 
 	private ManagerFactory() {
-		managersMap = new HashMap<String, IManager>();
+		managersMap = new HashMap();
 		Properties prop = new Properties();
 		try {
 			prop.load(Thread.currentThread().getContextClassLoader()
 					.getResourceAsStream("managers.properties"));
 
-			for (Entry<Object, Object> entry : prop.entrySet()) {
-
-				managersMap.put(
-						entry.getKey().toString().trim(),
-						(IManager) Class.forName(
-								entry.getValue().toString().trim())
-								.newInstance());
+			Iterator propEntryIterator = prop.entrySet().iterator();
+			while (propEntryIterator.hasNext()) {
+				Map.Entry entry = (Map.Entry)propEntryIterator.next();
+				managersMap.put(entry.getKey().toString().trim(), Class
+						.forName(entry.getValue().toString().trim())
+						.newInstance());
 			}
 
 		} catch (Exception e) {

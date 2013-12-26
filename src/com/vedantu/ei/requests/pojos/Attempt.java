@@ -3,109 +3,161 @@ package com.vedantu.ei.requests.pojos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Attempt {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    private String       code;
-    private String       userId;
-    private String       attemptId;
-    private float        maxScore;
-    private float        userScore;
-    private long         attemptStartTime;
-    private long         attemptEndTime;
-    private List<Answer> answers = new ArrayList<Answer>();
+import com.vedantu.ei.commons.JSONAware;
+import com.vedantu.ei.utils.JSONUtils;
 
-    public String getCode() {
+public class Attempt implements JSONAware {
 
-        return code;
-    }
+	private String code;
+	private String userId;
+	private String attemptId;
+	private float maxScore;
+	private float userScore;
+	private long attemptStartTime;
+	private long attemptEndTime;
+	/* <Answer> */
+	private List answers = new ArrayList();
 
-    public void setCode(String code) {
+	public String getCode() {
 
-        this.code = code;
-    }
+		return code;
+	}
 
-    public String getUserId() {
+	public void setCode(String code) {
 
-        return userId;
-    }
+		this.code = code;
+	}
 
-    public void setUserId(String userId) {
+	public String getUserId() {
 
-        this.userId = userId;
-    }
+		return userId;
+	}
 
-    public String getAttemptId() {
+	public void setUserId(String userId) {
 
-        return attemptId;
-    }
+		this.userId = userId;
+	}
 
-    public void setAttemptId(String attemptId) {
+	public String getAttemptId() {
 
-        this.attemptId = attemptId;
-    }
+		return attemptId;
+	}
 
-    public float getMaxScore() {
+	public void setAttemptId(String attemptId) {
 
-        return maxScore;
-    }
+		this.attemptId = attemptId;
+	}
 
-    public void setMaxScore(float maxScore) {
+	public float getMaxScore() {
 
-        this.maxScore = maxScore;
-    }
+		return maxScore;
+	}
 
-    public float getUserScore() {
+	public void setMaxScore(float maxScore) {
 
-        return userScore;
-    }
+		this.maxScore = maxScore;
+	}
 
-    public void setUserScore(float userScore) {
+	public float getUserScore() {
 
-        this.userScore = userScore;
-    }
+		return userScore;
+	}
 
-    public long getAttemptStartTime() {
+	public void setUserScore(float userScore) {
 
-        return attemptStartTime;
-    }
+		this.userScore = userScore;
+	}
 
-    public void setAttemptStartTime(long attemptStartTime) {
+	public long getAttemptStartTime() {
 
-        this.attemptStartTime = attemptStartTime;
-    }
+		return attemptStartTime;
+	}
 
-    public long getAttemptEndTime() {
+	public void setAttemptStartTime(long attemptStartTime) {
 
-        return attemptEndTime;
-    }
+		this.attemptStartTime = attemptStartTime;
+	}
 
-    public void setAttemptEndTime(long attemptEndTime) {
+	public long getAttemptEndTime() {
 
-        this.attemptEndTime = attemptEndTime;
-    }
+		return attemptEndTime;
+	}
 
-    public List<Answer> getAnswers() {
+	public void setAttemptEndTime(long attemptEndTime) {
 
-        return answers;
-    }
+		this.attemptEndTime = attemptEndTime;
+	}
 
-    public void setAnswers(List<Answer> answers) {
+	public List getAnswers() {
 
-        this.answers = answers;
-    }
+		return answers;
+	}
 
-    public void addAnswers(Answer... answers) {
+	public void setAnswers(List answers) {
 
-        if (answers != null) {
-            for (int i = 0; i < answers.length; i++) {
-                this.answers.add(answers[i]);
-            }
-        }
-    }
+		this.answers = answers;
+	}
 
-    public void addAnswer(Answer answer) {
+	public void addAnswers(Answer[] answers) {
 
-        this.answers.add(answer);
-    }
+		if (answers != null) {
+			for (int i = 0; i < answers.length; i++) {
+				this.answers.add(answers[i]);
+			}
+		}
+	}
+
+	public void addAnswer(Answer answer) {
+
+		this.answers.add(answer);
+	}
+
+	public void fromJSON(JSONObject json) throws JSONException {
+		this.code = json.getString(KEY_CODE);
+		this.userId = json.getString(KEY_USER_ID);
+		this.attemptId = json.getString(KEY_ATTEMPT_ID);
+		this.maxScore = (float) json.getDouble(KEY_MAX_SCORE);
+		this.userScore = (float) json.getDouble(KEY_USER_SCORE);
+		this.attemptStartTime = json.getLong(KEY_ATTEMPT_START_TIME);
+		this.attemptEndTime = json.getLong(KEY_ATTEMPT_END_TIME);
+
+		JSONArray answersJSONArray = json.getJSONArray(KEY_ANSWERS);
+		for (int i = 0; i < answersJSONArray.length(); i++) {
+			JSONObject answerJSON = (JSONObject) answersJSONArray.get(i);
+			Answer answer = new Answer();
+			answer.fromJSON(answerJSON);
+			this.answers.add(answer);
+		}
+	}
+
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put(KEY_CODE, this.code);
+			json.put(KEY_USER_ID, this.userId);
+			json.put(KEY_ATTEMPT_ID, this.attemptId);
+			json.put(KEY_MAX_SCORE, this.maxScore);
+			json.put(KEY_USER_SCORE, this.userScore);
+			json.put(KEY_ATTEMPT_START_TIME, this.attemptStartTime);
+			json.put(KEY_ATTEMPT_END_TIME, this.attemptEndTime);
+			json.put(KEY_ANSWERS, JSONUtils.toJSONArray(this.answers));
+		} catch (JSONException e) {
+			// swallow
+		}
+		return json;
+	}
+
+	private static final String KEY_CODE = "code";
+	private static final String KEY_USER_ID = "userId";
+	private static final String KEY_ATTEMPT_ID = "attemptId";
+	private static final String KEY_MAX_SCORE = "maxScore";
+	private static final String KEY_USER_SCORE = "userScore";
+	private static final String KEY_ATTEMPT_START_TIME = "attemptStartTime";
+	private static final String KEY_ATTEMPT_END_TIME = "attemptEndTime";
+	private static final String KEY_ANSWERS = "answers";
 
 }

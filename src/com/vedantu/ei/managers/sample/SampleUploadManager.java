@@ -3,6 +3,7 @@ package com.vedantu.ei.managers.sample;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.vedantu.ei.commons.enums.VedantuErrorCode;
@@ -15,36 +16,40 @@ import com.vedantu.ei.results.UploadTestAttemptsResult;
 
 public class SampleUploadManager implements IUploadManager {
 
-	@Override
 	public UploadTestAttemptsResponse uploadTestAttempts(
 			UploadTestAttemptsRequest request) throws InvocationTargetException {
 
 		UploadTestAttemptsResult result = new UploadTestAttemptsResult();
 
-		Set<String> validTestCodes = new HashSet<String>(
-				Arrays.asList(new String[] { "TEST-01", "TEST-02", "TEST-03", }));
+		/* <String> */
+		Set validTestCodes = new HashSet(Arrays.asList(new String[] {
+				"TEST-01", "TEST-02", "TEST-03", }));
 		boolean uploadFailed = false;
 
-		for (Attempt attempt : request.getAttempts()) {
+		Iterator attemptsIterator = request.getAttempts().iterator();
+
+		while (attemptsIterator.hasNext()) {
+
+			Attempt attempt = (Attempt) attemptsIterator.next();
 
 			if (!attempt.getUserId().equals("654321abc")) {
 				uploadFailed = true;
-				result.addFailedAttemptUploadInfo(new FailedAttemptUploadInfo(
-						attempt.getAttemptId(),
-						VedantuErrorCode.INVALID_USER_ID));
+				result.addFailedAttemptUploadInfo(FailedAttemptUploadInfo
+						.construct(attempt.getAttemptId(),
+								VedantuErrorCode.INVALID_USER_ID));
 				continue;
 			}
 
 			if (!validTestCodes.contains(attempt.getCode())) {
 				uploadFailed = true;
-				result.addFailedAttemptUploadInfo(new FailedAttemptUploadInfo(
-						attempt.getAttemptId(),
-						VedantuErrorCode.INVALID_TEST_CODE));
+				result.addFailedAttemptUploadInfo(FailedAttemptUploadInfo
+						.construct(attempt.getAttemptId(),
+								VedantuErrorCode.INVALID_TEST_CODE));
 				continue;
 			}
 		}
 
-		VedantuErrorCode errorCode = null;
+		String errorCode = null;
 		String errorMessage = null;
 
 		if (uploadFailed) {

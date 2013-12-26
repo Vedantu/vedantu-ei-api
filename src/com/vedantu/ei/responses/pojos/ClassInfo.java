@@ -1,30 +1,38 @@
 package com.vedantu.ei.responses.pojos;
 
-public class ClassInfo {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-	private String classCode;
-	private long expiry;
+import com.vedantu.ei.commons.JSONAware;
 
-	public ClassInfo(String classCode, long expiry) {
+public class ClassInfo implements JSONAware {
 
-		super();
-		this.classCode = classCode;
-		this.expiry = expiry;
+	public String classCode;
+	public long expiry;
+
+	public static ClassInfo construct(String classCode, long expiry) {
+		ClassInfo classInfo = new ClassInfo();
+		classInfo.classCode = classCode;
+		classInfo.expiry = expiry;
+		return classInfo;
 	}
 
-	public String getClassCode() {
-
-		return classCode;
+	public void fromJSON(JSONObject json) throws JSONException {
+		this.classCode = json.getString(KEY_CLASS_CODE);
+		this.expiry = json.getLong(KEY_EXPIRY);
 	}
 
-	public long getExpiry() {
-
-		return expiry;
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			json.put(KEY_CLASS_CODE, this.classCode);
+			json.put(KEY_EXPIRY, this.expiry);
+		} catch (JSONException e) {
+			// swallow
+		}
+		return json;
 	}
 
-	public void setExpiry(long expiry) {
-
-		this.expiry = expiry;
-	}
-
+	private static final String KEY_CLASS_CODE = "classCode";
+	private static final String KEY_EXPIRY = "expiry";
 }

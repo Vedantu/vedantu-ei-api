@@ -5,19 +5,22 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.vedantu.ei.commons.JSONAware;
 import com.vedantu.ei.commons.enums.VedantuErrorCode;
 import com.vedantu.ei.exceptions.VedantuException;
 import com.vedantu.ei.servlets.AbstractVedantuServlet;
-import com.vedantu.ei.utils.GsonUtils;
 
-public abstract class AbstractVedantuRequest {
+public abstract class AbstractVedantuRequest implements JSONAware {
 
 	public AbstractVedantuRequest() {
 
 	}
 
-	public static <T> T parse(HttpServletRequest request, Class<T> classType)
-			throws VedantuException, IOException {
+	public void parse(HttpServletRequest request) throws VedantuException,
+			IOException, JSONException {
 
 		if (!request.getContentType().equals(
 				AbstractVedantuServlet.CONTENT_TYPE_JSON)) {
@@ -25,7 +28,7 @@ public abstract class AbstractVedantuRequest {
 					"contentType: " + request.getContentType() + " not allowed");
 		}
 
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 
 		BufferedReader reader = request.getReader();
 		String line = null;
@@ -33,13 +36,13 @@ public abstract class AbstractVedantuRequest {
 			sb.append(line);
 		}
 
-		return GsonUtils.getGson().fromJson(sb.toString(), classType);
-
+		JSONObject json = new JSONObject(sb.toString());
+		fromJSON(json);
 	}
 
 	public final String toJSONString() {
 
-		return GsonUtils.getGson().toJson(this);
-
+		JSONObject json = toJSON();
+		return json.toString();
 	}
 }
