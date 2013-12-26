@@ -18,19 +18,10 @@ public class SampleUserManager implements IUserManager {
 	public AuthResponse authenticate(AuthRequest request)
 			throws InvocationTargetException {
 		AuthResponse response;
-		if (request.getUsername().equals("MBA2013999")
-				&& request.getPassword().equals("somesecret")) {
 
-			/* <ClassInfo> */
-			List classes = new ArrayList();
-			classes.add(ClassInfo.construct("TestId", 62222222222L));
+		if (isAuthenticated(request.getUsername(), request.getPassword())) {
 
-			AuthResult result = new AuthResult("654321abc", "Anthony",
-					Role.STUDENT, classes);
-
-			result.setLastName("Gonsalves");
-			result.setGender(Gender.MALE);
-			result.setMemberId("MBA2013999");
+			AuthResult result = getUserDetails(request.getUsername());
 
 			response = new AuthResponse(null, null, result);
 
@@ -39,6 +30,41 @@ public class SampleUserManager implements IUserManager {
 					"auth failure", null);
 		}
 		return response;
+	}
+
+	private boolean isAuthenticated(String username, String password) {
+		return username.equals("MBA2013999") && password.equals("somesecret");
+	}
+
+	private AuthResult getUserDetails(String username) {
+		AuthResult result = new AuthResult();
+
+		// set mandatory fields
+		result.setUserId("654321abc");
+		result.setFirstName("Anthony");
+		result.setRole(Role.STUDENT);
+
+		// set non-mandatory fields
+		result.setLastName("Gonsalves");
+		result.setGender(Gender.MALE);
+		result.setMemberId("MBA2013999");
+
+		// fetch user classes
+		List classes = getUserClasses(username);
+		result.setClasses(classes);
+
+		return result;
+	}
+
+	private List getUserClasses(String username) {
+		ClassInfo classInfo = new ClassInfo();
+		classInfo.setClassCode("Class-MBA2013");
+		classInfo.setExpiry(62222222222L);
+
+		/* <ClassInfo> */
+		List classes = new ArrayList();
+		classes.add(classInfo);
+		return classes;
 	}
 
 }

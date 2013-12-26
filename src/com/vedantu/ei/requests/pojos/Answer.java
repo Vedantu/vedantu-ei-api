@@ -16,12 +16,10 @@ public class Answer implements JSONAware {
 	private long timeTaken;
 
 	public int getQuestionNumber() {
-
 		return questionNumber;
 	}
 
 	public void setQuestionNumber(int questionNumber) {
-
 		this.questionNumber = questionNumber;
 	}
 
@@ -34,52 +32,42 @@ public class Answer implements JSONAware {
 	}
 
 	public boolean isAttempted() {
-
 		return isAttempted;
 	}
 
 	public void setAttempted(boolean isAttempted) {
-
 		this.isAttempted = isAttempted;
 	}
 
 	public boolean isCorrect() {
-
 		return isCorrect;
 	}
 
 	public void setCorrect(boolean isCorrect) {
-
 		this.isCorrect = isCorrect;
 	}
 
 	public float getMaxScore() {
-
 		return maxScore;
 	}
 
 	public void setMaxScore(float maxScore) {
-
 		this.maxScore = maxScore;
 	}
 
 	public float getUserScore() {
-
 		return userScore;
 	}
 
 	public void setUserScore(float userScore) {
-
 		this.userScore = userScore;
 	}
 
 	public long getTimeTaken() {
-
 		return timeTaken;
 	}
 
 	public void setTimeTaken(long timeTaken) {
-
 		this.timeTaken = timeTaken;
 	}
 

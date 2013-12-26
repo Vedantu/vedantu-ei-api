@@ -1,6 +1,5 @@
 package com.vedantu.ei.results;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,89 +27,81 @@ public class AuthResult extends AbstractVedantuResult {
 	/* <ClassInfo> */
 	private List classes = new ArrayList();
 
-	public AuthResult(String userId, String firstName, String role, List classes)
-			throws InvocationTargetException {
-
-		if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(firstName)
-				|| role == null || CollectionUtils.isEmpty(classes)) {
-			throw new InvocationTargetException(new Throwable(
-					"can not instantiate auth response with empty values"));
-		}
-		this.userId = userId;
-		this.firstName = firstName;
-		this.role = role;
-		this.classes = classes;
-
-	}
-
 	public String getUserId() {
-
 		return userId;
 	}
 
-	public String getMemberId() {
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
+	public String getMemberId() {
 		return memberId;
 	}
 
 	public void setMemberId(String memberId) {
-
 		this.memberId = memberId;
 	}
 
 	public String getFirstName() {
-
 		return firstName;
 	}
 
-	public String getLastName() {
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
+	public String getLastName() {
 		return lastName;
 	}
 
 	public void setLastName(String lastName) {
-
 		this.lastName = lastName;
 	}
 
 	public String getGender() {
-
 		return gender;
 	}
 
 	public void setGender(String gender) {
-
 		this.gender = gender;
 	}
 
 	public String getRole() {
-
 		return role;
 	}
 
-	public void addClassInfo(ClassInfo classInfo) {
-
-		classes.add(classInfo);
-	}
-
-	public void addClassInfo(ClassInfo[] classInfo) {
-
-		if (classInfo != null) {
-
-			for (int i = 0; i < classInfo.length; i++) {
-				classes.add(classInfo[i]);
-			}
-		}
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public List getClasses() {
-
 		return classes;
 	}
 
 	public void setClasses(List classes) {
-
 		this.classes = classes;
+	}
+
+	public void addClassInfo(ClassInfo classInfo) {
+		classes.add(classInfo);
+	}
+
+	public void validate() throws IllegalArgumentException {
+		List missingArgs = new ArrayList();
+		if (StringUtils.isEmpty(userId)) {
+			missingArgs.add(KEY_USER_ID);
+		}
+		if (StringUtils.isEmpty(firstName)) {
+			missingArgs.add(KEY_FIRST_NAME);
+		}
+		if (StringUtils.isEmpty(role)) {
+			missingArgs.add(KEY_ROLE);
+		}
+		if (!CollectionUtils.isEmpty(missingArgs)) {
+			throw new IllegalArgumentException(
+					"Missing arguments: in AuthResult -- " + missingArgs);
+		}
 	}
 
 	public void fromJSON(JSONObject json) throws JSONException {
@@ -133,6 +124,8 @@ public class AuthResult extends AbstractVedantuResult {
 	}
 
 	public JSONObject toJSON() {
+		validate();
+
 		JSONObject json = new JSONObject();
 		try {
 			json.put(KEY_USER_ID, this.userId);

@@ -3,13 +3,14 @@ package com.vedantu.ei.responses;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.vedantu.ei.requests.AbstractVedantuRequest;
+import com.vedantu.ei.commons.AbstractVedantuJSONStringable;
 import com.vedantu.ei.results.AbstractVedantuResult;
 import com.vedantu.ei.results.BooleanResult;
 import com.vedantu.ei.utils.JSONUtils;
 import com.vedantu.ei.utils.StringUtils;
 
-public class AbstractVedantuResponse extends AbstractVedantuRequest {
+public class AbstractVedantuResponse extends AbstractVedantuJSONStringable
+		implements IResponseValidator {
 
 	protected static final BooleanResult NO_RESULT = new BooleanResult();
 
@@ -20,7 +21,6 @@ public class AbstractVedantuResponse extends AbstractVedantuRequest {
 
 	protected AbstractVedantuResponse(String errorCode, String errorMessage,
 			AbstractVedantuResult result) {
-
 		super();
 		this.errorCode = null != errorCode ? errorCode : StringUtils.EMPTY;
 		this.errorMessage = null != errorMessage ? errorMessage
@@ -29,18 +29,22 @@ public class AbstractVedantuResponse extends AbstractVedantuRequest {
 	}
 
 	public String getErrorCode() {
-
 		return errorCode;
 	}
 
 	public String getErrorMessage() {
-
 		return errorMessage;
 	}
 
 	public AbstractVedantuResult getResult() {
-
 		return result;
+	}
+
+	public void validate() throws IllegalArgumentException {
+		if (null == this.result && StringUtils.isEmpty(errorCode)) {
+			throw new IllegalArgumentException(
+					"Missing arguments: in AbstractVedantuResponse -- result and errorCode");
+		}
 	}
 
 	public void fromJSON(JSONObject json) throws JSONException {
@@ -58,6 +62,8 @@ public class AbstractVedantuResponse extends AbstractVedantuRequest {
 	}
 
 	public JSONObject toJSON() {
+		validate();
+
 		JSONObject json = new JSONObject();
 		try {
 			json.put(KEY_ERROR_CODE, this.errorCode);
@@ -77,5 +83,4 @@ public class AbstractVedantuResponse extends AbstractVedantuRequest {
 	private static final String KEY_ERROR_CODE = "errorCode";
 	private static final String KEY_ERROR_MESSAGE = "errorMessage";
 	private static final String KEY_RESULT = "result";
-
 }

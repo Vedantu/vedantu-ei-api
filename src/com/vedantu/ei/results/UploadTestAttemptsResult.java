@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vedantu.ei.responses.pojos.FailedAttemptUploadInfo;
+import com.vedantu.ei.utils.CollectionUtils;
 import com.vedantu.ei.utils.JSONUtils;
 
 public class UploadTestAttemptsResult extends AbstractVedantuResult {
@@ -24,20 +25,16 @@ public class UploadTestAttemptsResult extends AbstractVedantuResult {
 	}
 
 	public void addFailedAttemptUploadInfo(
-			FailedAttemptUploadInfo[] attemptUploadInfos) {
-
-		if (attemptUploadInfos != null) {
-
-			for (int i = 0; i < attemptUploadInfos.length; i++) {
-				failedAttempts.add(attemptUploadInfos[i]);
-			}
-		}
+			FailedAttemptUploadInfo attemptUploadInfo) {
+		failedAttempts.add(attemptUploadInfo);
 	}
 
-	public void addFailedAttemptUploadInfo(
-			FailedAttemptUploadInfo attemptUploadInfo) {
-
-		failedAttempts.add(attemptUploadInfo);
+	public void validate() throws IllegalArgumentException {
+		if (CollectionUtils.isEmpty(failedAttempts)) {
+			throw new IllegalArgumentException(
+					"Missing arguments: in UploadTestAttemptsResult -- "
+							+ failedAttempts);
+		}
 	}
 
 	public void fromJSON(JSONObject json) throws JSONException {
@@ -53,6 +50,8 @@ public class UploadTestAttemptsResult extends AbstractVedantuResult {
 	}
 
 	public JSONObject toJSON() {
+		validate();
+
 		JSONObject json = new JSONObject();
 		try {
 			json.put(KEY_FAILED_ATTEMPTS,

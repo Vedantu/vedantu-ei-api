@@ -8,11 +8,6 @@ public class AuthRequest extends AbstractVedantuRequest {
 	private String username;
 	private String password;
 
-	public AuthRequest() {
-
-		super();
-	}
-
 	public String getUsername() {
 		return username;
 	}

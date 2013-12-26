@@ -16,14 +16,16 @@ import com.vedantu.ei.results.UploadTestAttemptsResult;
 
 public class SampleUploadManager implements IUploadManager {
 
+	private static final Set VALID_TEST_CODES = new HashSet(
+			Arrays.asList(new String[] { "TEST-01", "TEST-02", "TEST-03", }));
+
 	public UploadTestAttemptsResponse uploadTestAttempts(
 			UploadTestAttemptsRequest request) throws InvocationTargetException {
 
 		UploadTestAttemptsResult result = new UploadTestAttemptsResult();
 
 		/* <String> */
-		Set validTestCodes = new HashSet(Arrays.asList(new String[] {
-				"TEST-01", "TEST-02", "TEST-03", }));
+
 		boolean uploadFailed = false;
 
 		Iterator attemptsIterator = request.getAttempts().iterator();
@@ -32,20 +34,24 @@ public class SampleUploadManager implements IUploadManager {
 
 			Attempt attempt = (Attempt) attemptsIterator.next();
 
-			if (!attempt.getUserId().equals("654321abc")) {
+			if (!isValidUser(attempt.getUserId())) {
 				uploadFailed = true;
-				result.addFailedAttemptUploadInfo(FailedAttemptUploadInfo
-						.construct(attempt.getAttemptId(),
-								VedantuErrorCode.INVALID_USER_ID));
-				continue;
-			}
 
-			if (!validTestCodes.contains(attempt.getCode())) {
+				FailedAttemptUploadInfo failedAttemptUploadInfo = new FailedAttemptUploadInfo();
+				failedAttemptUploadInfo.setAttemptId(attempt.getAttemptId());
+				failedAttemptUploadInfo
+						.setErrorCode(VedantuErrorCode.INVALID_USER_ID);
+
+				result.addFailedAttemptUploadInfo(failedAttemptUploadInfo);
+			} else if (!isValidTest(attempt.getCode())) {
 				uploadFailed = true;
-				result.addFailedAttemptUploadInfo(FailedAttemptUploadInfo
-						.construct(attempt.getAttemptId(),
-								VedantuErrorCode.INVALID_TEST_CODE));
-				continue;
+
+				FailedAttemptUploadInfo failedAttemptUploadInfo = new FailedAttemptUploadInfo();
+				failedAttemptUploadInfo.setAttemptId(attempt.getAttemptId());
+				failedAttemptUploadInfo
+						.setErrorCode(VedantuErrorCode.INVALID_TEST_CODE);
+
+				result.addFailedAttemptUploadInfo(failedAttemptUploadInfo);
 			}
 		}
 
@@ -58,5 +64,13 @@ public class SampleUploadManager implements IUploadManager {
 		}
 
 		return new UploadTestAttemptsResponse(errorCode, errorMessage, result);
+	}
+
+	private boolean isValidUser(String userId) {
+		return userId.equals("654321abc");
+	}
+
+	private boolean isValidTest(String testCode) {
+		return VALID_TEST_CODES.contains(testCode);
 	}
 }

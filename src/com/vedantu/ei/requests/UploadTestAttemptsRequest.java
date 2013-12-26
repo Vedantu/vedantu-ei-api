@@ -1,6 +1,7 @@
 package com.vedantu.ei.requests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -17,31 +18,25 @@ public class UploadTestAttemptsRequest extends AbstractVedantuRequest {
 	private List attempts = new ArrayList();
 
 	public String getUploadId() {
-
 		return uploadId;
 	}
 
 	public void setUploadId(String uploadId) {
-
 		this.uploadId = uploadId;
 	}
 
 	public List getAttempts() {
-
 		return attempts;
 	}
 
 	public void setAttempts(List attempts) {
-
 		this.attempts = attempts;
 	}
 
 	public void addAttempts(Attempt[] attempts) {
 
-		if (attempts != null) {
-			for (int i = 0; i < attempts.length; i++) {
-				this.attempts.add(attempts[i]);
-			}
+		if (null != attempts) {
+			this.attempts.addAll(Arrays.asList(attempts));
 		}
 	}
 

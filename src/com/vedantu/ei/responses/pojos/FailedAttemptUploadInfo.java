@@ -1,22 +1,51 @@
 package com.vedantu.ei.responses.pojos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vedantu.ei.commons.JSONAware;
+import com.vedantu.ei.responses.IResponseValidator;
+import com.vedantu.ei.utils.CollectionUtils;
+import com.vedantu.ei.utils.StringUtils;
 
-public class FailedAttemptUploadInfo implements JSONAware {
+public class FailedAttemptUploadInfo implements JSONAware, IResponseValidator {
 
-	public String attemptId;
+	private String attemptId;
 	/* enum VedantuErrorCode */
-	public String errorCode;
+	private String errorCode;
 
-	public static FailedAttemptUploadInfo construct(String attemptId,
-			String errorCode) {
-		FailedAttemptUploadInfo failedAttemptUploadInfo = new FailedAttemptUploadInfo();
-		failedAttemptUploadInfo.attemptId = attemptId;
-		failedAttemptUploadInfo.errorCode = errorCode;
-		return failedAttemptUploadInfo;
+	public String getAttemptId() {
+		return attemptId;
+	}
+
+	public void setAttemptId(String attemptId) {
+		this.attemptId = attemptId;
+	}
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public void validate() throws IllegalArgumentException {
+		List missingArgs = new ArrayList();
+		if (StringUtils.isEmpty(attemptId)) {
+			missingArgs.add(KEY_ATTEMPT_ID);
+		}
+		if (StringUtils.isEmpty(errorCode)) {
+			missingArgs.add(KEY_ERROR_CODE);
+		}
+		if (!CollectionUtils.isEmpty(missingArgs)) {
+			throw new IllegalArgumentException(
+					"Missing arguments: in FailedAttemptUploadInfo -- "
+							+ missingArgs);
+		}
 	}
 
 	public void fromJSON(JSONObject json) throws JSONException {
@@ -25,6 +54,8 @@ public class FailedAttemptUploadInfo implements JSONAware {
 	}
 
 	public JSONObject toJSON() {
+		validate();
+
 		JSONObject json = new JSONObject();
 		try {
 			json.put(KEY_ATTEMPT_ID, this.attemptId);
@@ -37,5 +68,4 @@ public class FailedAttemptUploadInfo implements JSONAware {
 
 	private static final String KEY_ATTEMPT_ID = "attemptId";
 	private static final String KEY_ERROR_CODE = "errorCode";
-
 }

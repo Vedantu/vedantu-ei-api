@@ -8,16 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.vedantu.ei.commons.JSONAware;
+import com.vedantu.ei.commons.AbstractVedantuJSONStringable;
 import com.vedantu.ei.commons.enums.VedantuErrorCode;
 import com.vedantu.ei.exceptions.VedantuException;
 import com.vedantu.ei.servlets.AbstractVedantuServlet;
 
-public abstract class AbstractVedantuRequest implements JSONAware {
-
-	public AbstractVedantuRequest() {
-
-	}
+public abstract class AbstractVedantuRequest extends
+		AbstractVedantuJSONStringable {
 
 	public void parse(HttpServletRequest request) throws VedantuException,
 			IOException, JSONException {
@@ -38,11 +35,5 @@ public abstract class AbstractVedantuRequest implements JSONAware {
 
 		JSONObject json = new JSONObject(sb.toString());
 		fromJSON(json);
-	}
-
-	public final String toJSONString() {
-
-		JSONObject json = toJSON();
-		return json.toString();
 	}
 }
