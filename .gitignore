@@ -6,6 +6,7 @@ bin/
 dist/
 out/
 work/
+build.properties
 
 #[ant]
 .ant-targets-build.xml

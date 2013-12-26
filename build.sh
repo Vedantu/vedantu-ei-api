@@ -2,6 +2,8 @@
 
 #
 # [CONFIGURABLE PROPERTIES]
+# create a file [build.properties] with the following properties:
+#
 # REQ_JAVA_HOME       -- the base directory of your jdk
 #                        eg. /usr/local/j2sdk1.4.2
 # REQ_APP_SERVER_HOME -- the base directory of your server
@@ -13,12 +15,21 @@
 # Example:
 # REQ_JAVA_HOME=/usr/local/j2sdk1.4.2
 # REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-5.5.12
-
-REQ_JAVA_HOME=/usr/local/jdk
-REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-7.0.42
+#
+# This [build.properties] file should be present in the same directory as this 
+# file.
 
 # --------------------------------------------------------------------------------
 
+BUILD_PROPERTIES="`dirname $0`/build.properties";
+
+if [ ! -f "$BUILD_PROPERTIES" ]
+then
+  echo "missing $BUILD_PROPERTIES";
+  exit 1;
+fi;
+
+. "$BUILD_PROPERTIES"
 
 OLD_JAVA_HOME=$JAVA_HOME
 
