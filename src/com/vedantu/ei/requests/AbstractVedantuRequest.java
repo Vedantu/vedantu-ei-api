@@ -19,7 +19,7 @@ public abstract class AbstractVedantuRequest extends
 	public void parse(HttpServletRequest request) throws VedantuException,
 			IOException, JSONException {
 
-		if (!request.getContentType().equals(
+		if (-1 == request.getContentType().indexOf(
 				AbstractVedantuServlet.CONTENT_TYPE_JSON)) {
 			throw new VedantuException(VedantuErrorCode.INVALID_CONTENT_TYPE,
 					"contentType: " + request.getContentType() + " not allowed");

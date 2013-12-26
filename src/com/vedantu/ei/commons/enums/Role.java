@@ -1,6 +1,6 @@
 package com.vedantu.ei.commons.enums;
 
-public final class Role implements IVedantuEnum {
+public final class Role {
 
 	/* enum Role */
 
@@ -8,7 +8,7 @@ public final class Role implements IVedantuEnum {
 	public static final String TEACHER = "TEACHER";
 	public static final String ADMIN = "ADMIN";
 
-	public String valueOf(String key) {
+	public static String valueOf(String key) {
 		if (TEACHER.equalsIgnoreCase(key)) {
 			return TEACHER;
 		} else if (ADMIN.equalsIgnoreCase(key)) {

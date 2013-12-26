@@ -1,6 +1,6 @@
 package com.vedantu.ei.commons.enums;
 
-public final class VedantuErrorCode implements IVedantuEnum {
+public final class VedantuErrorCode {
 
 	/* enum VedantuErrorCode */
 
@@ -11,7 +11,7 @@ public final class VedantuErrorCode implements IVedantuEnum {
 	public static final String INVALID_CONTENT_TYPE = "INVALID_CONTENT_TYPE";
 	public static final String UPLOAD_FAILED = "UPLOAD_FAILED";
 
-	public String valueOf(String key) {
+	public static String valueOf(String key) {
 		return null == key ? null : key.toUpperCase();
 	}
 

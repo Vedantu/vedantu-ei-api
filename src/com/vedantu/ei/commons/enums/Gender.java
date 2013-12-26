@@ -1,6 +1,6 @@
 package com.vedantu.ei.commons.enums;
 
-public final class Gender implements IVedantuEnum {
+public final class Gender {
 
 	/* enum Gender */
 
@@ -8,7 +8,7 @@ public final class Gender implements IVedantuEnum {
 	public static final String MALE = "MALE";
 	public static final String FEMALE = "FEMALE";
 
-	public String valueOf(String key) {
+	public static String valueOf(String key) {
 		if (MALE.equalsIgnoreCase(key)) {
 			return MALE;
 		} else if (FEMALE.equalsIgnoreCase(key)) {
