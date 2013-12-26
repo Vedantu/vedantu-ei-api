@@ -37,6 +37,7 @@ echo "built..."
 
 echo "unsetting temporary environment"
 export JAVA_VERSION
+export APP_SERVER_HOME
 export JAVA_HOME=$OLD_JAVA_HOME
 echo "JAVA_HOME: $JAVA_HOME"
 echo "====================================="
