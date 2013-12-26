@@ -10,9 +10,12 @@
 #                        and will refer only the [lib], [common/lib] directories
 #                        of your application server.
 #
-#
-REQ_JAVA_HOME=/usr/local/j2sdk1.4.2
-REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-5.5.12
+# Example:
+# REQ_JAVA_HOME=/usr/local/j2sdk1.4.2
+# REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-5.5.12
+
+REQ_JAVA_HOME=/usr/local/jdk
+REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-7.0.42
 
 # --------------------------------------------------------------------------------
 
