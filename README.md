@@ -33,6 +33,13 @@ These variables can be set by creating a _build.properties_ file in the project 
 1. REQ_JAVA_HOME
 2. REQ_APP_SERVER_HOME
 
+A sample _build.properties_ file:
+
+```
+REQ_JAVA_HOME=/usr/local/j2sdk1.4.2
+REQ_APP_SERVER_HOME=/usr/local/apache-tomcat-5.5.12
+```
+
 The next step is to actually build the project. This can be done by running the _build.sh_ from a shell:
 
 ```shell
