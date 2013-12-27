@@ -54,7 +54,7 @@
 <tbody>
 <tr>
 <td><strong>Platform</strong></td>
-<td>Java 6 <br><strong><em>tested with:</em></strong> <br><em>java version "1.6.0_30"</em> <br><em>Java(TM) SE Runtime Environment (build 1.6.0_30-b12)</em> <br><em>Java HotSpot(TM) 64-Bit Server VM (build 20.5-b03, mixed mode)</em>
+<td>Java 6 <br><strong><em>tested with:</em></strong> <br><em>java version "1.6.0_30"</em> <br><em>Java(TM) SE Runtime Environment (build 1.6.0_30-b12)</em> <br><em>Java HotSpot(TM) 64-Bit Server VM (build 20.5-b03, mixed mode)</em> <br><strong><em>also with</em>:</strong> <br><em>java version "1.4.2"</em>
 </td>
 </tr>
 <tr>
@@ -64,25 +64,33 @@
 </tr>
 <tr>
 <td><strong>Application Server</strong></td>
-<td>Apache Tomcat <br><strong><em>tested with:</em></strong> <br><em>Apache Tomcat 7.0.42</em> <br><em>Using some other Application Server would require appropriately adapting the build.xml file, as presently it refers ${env.CATALINA_HOME} or ${env.TOMCAT_HOME} for compilation.</em>
+<td>Apache Tomcat <br><strong><em>tested with:</em></strong> <br><em>Apache Tomcat 7.0.42</em> <br><em>Apache Tomcat 5.5.12</em>
 </td>
 </tr>
 </tbody>
 </table><h3>
 <a name="how-to-build" class="anchor" href="#how-to-build"><span class="octicon octicon-link"></span></a>How to build?</h3>
 
-<p>The code can be built using Ant on a shell prompt.</p>
+<p>The code can be built using Ant on a shell prompt. The build refers <em>lib</em> and <em>common/lib</em> folders (if any of them is available) for compilation (so as to pick the appropriate servlet jars). </p>
 
-<p>To get the available build options:</p>
+<p>The build needs two environment variables:</p>
 
-<pre lang="shell"><code>ant
-OR
-ant help
+<ol>
+<li>JAVA_HOME</li>
+<li>APP_SERVER_HOME</li>
+</ol><p>These variables can be set by creating a <em>build.properties</em> file in the project (this is a local file) and putting the following properties in it:</p>
+
+<ol>
+<li>REQ_JAVA_HOME</li>
+<li>REQ_APP_SERVER_HOME</li>
+</ol><p>The next step is to actually build the project. This can be done by running the <em>build.sh</em> from a shell:</p>
+
+<pre lang="shell"><code>./build.sh
 </code></pre>
 
-<p><strong>Note: Appropriately set the environment variable CATALINA_HOME or TOMCAT_HOME to refer to the base directory of your Apache Tomcat installation.</strong></p>
+<p>The above procedure allows the project to be compiled against different versions of JAVA and Application Servers.</p>
 
-<p>Once you build you will find the following files in the dist folder:</p>
+<p>Once you build you will find the following files in the <em>dist</em> folder:</p>
 
 <ol>
 <li>vedantu-ei-api.jar</li>
