@@ -8,7 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.vedantu.ei.responses.pojos.FailedAttemptUploadInfo;
-import com.vedantu.ei.utils.CollectionUtils;
 import com.vedantu.ei.utils.JSONUtils;
 
 public class UploadTestAttemptsResult extends AbstractVedantuResult {
@@ -30,10 +29,10 @@ public class UploadTestAttemptsResult extends AbstractVedantuResult {
 	}
 
 	public void validate() throws IllegalArgumentException {
-		if (CollectionUtils.isEmpty(failedAttempts)) {
+
+		if (null == failedAttempts) {
 			throw new IllegalArgumentException(
-					"Missing arguments: in UploadTestAttemptsResult -- "
-							+ failedAttempts);
+					"Missing arguments: in UploadTestAttemptsResult -- failedAttempts can not be null");
 		}
 	}
 

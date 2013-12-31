@@ -18,7 +18,8 @@ public abstract class AbstractVedantuServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		throw new UnsupportedOperationException(
+				"get method not allowed, class: " + getClass());
 	}
 
 }
