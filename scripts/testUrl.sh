@@ -47,8 +47,16 @@ echo ;
 
 
 echo "====================================";
-echo "[enroll - success]";
+echo "[enroll - already enrolled]";
 time(curl -X POST -H "Content-Type: application/json" -d '{"userId" : "654321abc", "classCode" : "CLASS-01"}' http://localhost:8080/vedantu-ei-api/enroll)
+echo "------------------------------------";
+
+echo ;
+
+
+echo "====================================";
+echo "[enroll - success]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"userId" : "654321abc", "classCode" : "CLASS-02"}' http://localhost:8080/vedantu-ei-api/enroll)
 echo "------------------------------------";
 
 echo ;

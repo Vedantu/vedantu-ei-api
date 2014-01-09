@@ -163,16 +163,20 @@ public class SampleUserManager implements IUserManager {
 					"enroll failure", null);
 		} else {
 
-			// perform steps to enroll the user in the class
-			// <your steps>
-			// <your steps>
-			// ...
+			ClassInfo classInfo = checkAlreadyEnrolled(request.getUserId(),
+					request.getClassCode());
+			if (null == classInfo) {
+
+				// perform steps to enroll the user in the class
+				// <your steps>
+				// <your steps>
+				// ...
+				classInfo = new ClassInfo();
+				classInfo.setClassCode(request.getClassCode());
+				classInfo.setExpiry(62222222222L);
+			}
 
 			EnrollResult result = new EnrollResult();
-
-			ClassInfo classInfo = new ClassInfo();
-			classInfo.setClassCode(request.getClassCode());
-			classInfo.setExpiry(62222222222L);
 			result.setClassInfo(classInfo);
 
 			response = new EnrollResponse(null, null, result);
@@ -186,6 +190,16 @@ public class SampleUserManager implements IUserManager {
 
 	private boolean isValidClass(String classCode) {
 		return VALID_CLASS_CODES.contains(classCode);
+	}
+
+	private ClassInfo checkAlreadyEnrolled(String userId, String classCode) {
+		ClassInfo classInfo = null;
+		if (userId.equals("654321abc") && classCode.equals("CLASS-01")) {
+			classInfo = new ClassInfo();
+			classInfo.setClassCode(classCode);
+			classInfo.setExpiry(62222222222L);
+		}
+		return classInfo;
 	}
 
 }
