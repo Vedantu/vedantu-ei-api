@@ -35,4 +35,8 @@ public class EnrollResult extends AbstractVedantuResult {
 		return classInfo.toJSON();
 	}
 
+	public String toString() {
+		return "{classInfo:" + classInfo + "}";
+	}
+
 }

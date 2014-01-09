@@ -7,7 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.vedantu.ei.utils.CollectionUtils;
 import com.vedantu.ei.utils.JSONUtils;
+import com.vedantu.ei.utils.StringUtils;
 
 public class RegResult extends AbstractVedantuResult {
 
@@ -45,7 +47,11 @@ public class RegResult extends AbstractVedantuResult {
 	}
 
 	public void validate() throws IllegalArgumentException {
-		// DOES NOTHING FOR NOW
+		if (StringUtils.isEmpty(userId)
+				&& CollectionUtils.isEmpty(missingParameters)) {
+			throw new IllegalArgumentException(
+					"Missing arguments: in RegResult -- required userId or missingParameters");
+		}
 	}
 
 	public void fromJSON(JSONObject json) throws JSONException {
@@ -72,6 +78,11 @@ public class RegResult extends AbstractVedantuResult {
 			// swallow
 		}
 		return json;
+	}
+
+	public String toString() {
+		return "{userId:" + userId + ", memberId:" + memberId
+				+ ", missingParameters:" + missingParameters + "}";
 	}
 
 	private static final String KEY_USER_ID = "userId";
