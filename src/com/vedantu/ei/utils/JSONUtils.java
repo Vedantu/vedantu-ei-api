@@ -1,6 +1,9 @@
 package com.vedantu.ei.utils;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +58,26 @@ public class JSONUtils {
 			}
 		}
 		return jsonArray;
+	}
+
+	/* <String, Object> */
+	public static Map toMap(JSONObject json, String key) {
+		if (null == json) {
+			return null;
+		}
+		if (!StringUtils.isEmpty(key) && !json.has(key)) {
+			return null;
+		}
+		Map jsonMap = new HashMap();
+		JSONObject convertible = StringUtils.isEmpty(key) ? json
+				: (JSONObject) json.get(key);
+		Iterator keysIterator = convertible.keys();
+		while (keysIterator.hasNext()) {
+			String k = (String) keysIterator.next();
+			Object v = convertible.get(k);
+			jsonMap.put(k, v);
+		}
+		return jsonMap;
 	}
 
 }
