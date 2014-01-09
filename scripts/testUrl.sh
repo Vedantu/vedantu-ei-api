@@ -29,6 +29,30 @@ echo "------------------------------------";
 
 echo ;
 
+
+echo "====================================";
+echo "[enroll - invalid userId]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"userId" : "654321XYZ", "classCode" : "CLASS-01"}' http://localhost:8080/vedantu-ei-api/enroll)
+echo "------------------------------------";
+
+echo ;
+
+
+echo "====================================";
+echo "[enroll - invalid classCode]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"userId" : "654321abc", "classCode" : "CLASS-999"}' http://localhost:8080/vedantu-ei-api/enroll)
+echo "------------------------------------";
+
+echo ;
+
+
+echo "====================================";
+echo "[enroll - success]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"userId" : "654321abc", "classCode" : "CLASS-01"}' http://localhost:8080/vedantu-ei-api/enroll)
+echo "------------------------------------";
+
+echo ;
+
 echo "====================================";
 echo "[uploadTestAttemptData - invalid userId and test code]";
 time(curl -X POST -H "Content-Type: application/json" -d '{"uploadId":"abscd123","attempts":[{"code":"TEST-03","userId":"user123","attemptId":"12345dc123","maxScore":100,"userScore":50,"attemptStartTime":1387196796000,"attemptEndTime":1387196856000,"answers":[{"questionNumber":1,"isAttempted":true,"userAnswer":"1,3","isCorrect":true,"userScore":5,"maxScore":5,"timeTaken":5000},{"questionNumber":2,"isAttempted":true,"userAnswer":"25","isCorrect":true,"userScore":5,"maxScore":5,"timeTaken":5000}]},{"code":"TEST-07","userId":"654321abc","attemptId":"dcesc12345dc","maxScore":100,"userScore":50,"attemptStartTime":1387196796000,"attemptEndTime":1387196856000,"answers":[{"questionNumber":1,"isAttempted":true,"userAnswer":"1,3","isCorrect":true,"userScore":5,"maxScore":5,"timeTaken":5000}]}]}' http://localhost:8080/vedantu-ei-api/uploadTestAttemptData)

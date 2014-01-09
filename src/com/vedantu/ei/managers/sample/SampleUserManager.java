@@ -2,23 +2,32 @@ package com.vedantu.ei.managers.sample;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.vedantu.ei.commons.enums.Gender;
 import com.vedantu.ei.commons.enums.Role;
 import com.vedantu.ei.commons.enums.VedantuErrorCode;
 import com.vedantu.ei.managers.api.IUserManager;
 import com.vedantu.ei.requests.AuthRequest;
+import com.vedantu.ei.requests.EnrollRequest;
 import com.vedantu.ei.requests.RegRequest;
 import com.vedantu.ei.responses.AuthResponse;
+import com.vedantu.ei.responses.EnrollResponse;
 import com.vedantu.ei.responses.RegResponse;
 import com.vedantu.ei.responses.pojos.ClassInfo;
 import com.vedantu.ei.results.AuthResult;
+import com.vedantu.ei.results.EnrollResult;
 import com.vedantu.ei.results.RegResult;
 import com.vedantu.ei.utils.CollectionUtils;
 import com.vedantu.ei.utils.StringUtils;
 
 public class SampleUserManager implements IUserManager {
+
+	private static final Set VALID_CLASS_CODES = new HashSet(
+			Arrays.asList(new String[] { "CLASS-01", "CLASS-02", "CLASS-03", }));
 
 	public AuthResponse authenticate(AuthRequest request)
 			throws InvocationTargetException {
@@ -79,12 +88,12 @@ public class SampleUserManager implements IUserManager {
 		RegResult result = new RegResult();
 
 		if (hasMissingParameters(request, result)) {
-			response = new RegResponse(VedantuErrorCode.MISSING_PARAMETERS, "",
-					result);
+			response = new RegResponse(VedantuErrorCode.MISSING_PARAMETERS,
+					"register failure", result);
 		} else if (isAlreadyRegistered(request.getUsername())) {
 
 			response = new RegResponse(VedantuErrorCode.USER_ALREADY_EXISTS,
-					"", null);
+					"register failure", null);
 
 		} else {
 			result = registerUser(request);
@@ -137,6 +146,46 @@ public class SampleUserManager implements IUserManager {
 		result.setMemberId("MBA2013666");
 
 		return result;
+	}
+
+	public EnrollResponse enroll(EnrollRequest request)
+			throws InvocationTargetException {
+
+		EnrollResponse response;
+
+		if (!isValidUser(request.getUserId())) {
+
+			response = new EnrollResponse(VedantuErrorCode.INVALID_USER_ID,
+					"enroll failure", null);
+
+		} else if (!isValidClass(request.getClassCode())) {
+			response = new EnrollResponse(VedantuErrorCode.INVALID_CLASS_CODE,
+					"enroll failure", null);
+		} else {
+
+			// perform steps to enroll the user in the class
+			// <your steps>
+			// <your steps>
+			// ...
+
+			EnrollResult result = new EnrollResult();
+
+			ClassInfo classInfo = new ClassInfo();
+			classInfo.setClassCode(request.getClassCode());
+			classInfo.setExpiry(62222222222L);
+			result.setClassInfo(classInfo);
+
+			response = new EnrollResponse(null, null, result);
+		}
+		return response;
+	}
+
+	private boolean isValidUser(String userId) {
+		return userId.equals("654321abc");
+	}
+
+	private boolean isValidClass(String classCode) {
+		return VALID_CLASS_CODES.contains(classCode);
 	}
 
 }

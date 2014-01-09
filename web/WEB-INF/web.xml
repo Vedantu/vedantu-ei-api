@@ -27,6 +27,16 @@
 		<url-pattern>/authenticate</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<description></description>
+		<display-name>EnrollServlet</display-name>
+		<servlet-name>EnrollServlet</servlet-name>
+		<servlet-class>com.vedantu.ei.servlets.EnrollServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnrollServlet</servlet-name>
+		<url-pattern>/enroll</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<description></description>

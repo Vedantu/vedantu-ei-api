@@ -12,6 +12,7 @@ public final class VedantuErrorCode {
 	public static final String UPLOAD_FAILED = "UPLOAD_FAILED";
 	public static final String USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS";
 	public static final String MISSING_PARAMETERS = "MISSING_PARAMETERS";
+	public static final String INVALID_CLASS_CODE = "INVALID_CLASS_CODE";
 
 	public static String valueOf(String key) {
 		return null == key ? null : key.toUpperCase();
