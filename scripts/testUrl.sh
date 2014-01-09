@@ -1,6 +1,28 @@
 #!/bin/bash
 
 echo "====================================";
+echo "[register - already registered]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"username" : "MBA2013999", "password" : "somesecret", "firstName" : "Anthony", "role" : "STUDENT", "additionalInfo" : {"CAT Roll Number" : "CAT-2013-111"}}' http://localhost:8080/vedantu-ei-api/register)
+echo "------------------------------------";
+
+echo ;
+
+echo "====================================";
+echo "[register - missing parameters]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"username" : "MBA2013000", "password" : "somesecret", "firstName" : "Anthony", "role" : "STUDENT", "additionalInfo" : {"Father Name" : "Puppa"}}' http://localhost:8080/vedantu-ei-api/register)
+echo "------------------------------------";
+
+echo ;
+
+echo "====================================";
+echo "[register - success]";
+time(curl -X POST -H "Content-Type: application/json" -d '{"username" : "MBA2013000", "password" : "somesecret", "firstName" : "Anthony", "role" : "STUDENT", "additionalInfo" : {"CAT Roll Number" : "CAT-2013-111"}}' http://localhost:8080/vedantu-ei-api/register)
+echo "------------------------------------";
+
+echo ;
+
+
+echo "====================================";
 echo "[authenticate]";
 time(curl -X POST -H "Content-Type: application/json" -d '{"username" : "MBA2013999", "password" : "somesecret"}' http://localhost:8080/vedantu-ei-api/authenticate)
 echo "------------------------------------";

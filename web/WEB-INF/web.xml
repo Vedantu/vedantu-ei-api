@@ -7,6 +7,17 @@
 
 	<servlet>
 		<description></description>
+		<display-name>RegServlet</display-name>
+		<servlet-name>RegServlet</servlet-name>
+		<servlet-class>com.vedantu.ei.servlets.RegServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegServlet</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description></description>
 		<display-name>AuthServlet</display-name>
 		<servlet-name>AuthServlet</servlet-name>
 		<servlet-class>com.vedantu.ei.servlets.AuthServlet</servlet-class>
